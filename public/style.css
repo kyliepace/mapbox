@@ -1,0 +1,8 @@
+#app{
+  height: 100vh;
+  font-family: 'Germania One', cursive;
+}
+
+.mapboxgl-canvas-container {
+  height: 100vh;
+}
