@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import mapboxgl from 'mapbox-gl'
+import geojson from './darkness.json'
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 class Application extends React.Component {
@@ -33,6 +34,22 @@ class Application extends React.Component {
         zoom: map.getZoom().toFixed(2)
       });
     });
+
+    map.on('load', () => {
+      map.addSource('darkness', {
+        type: 'geojson',
+        data: geojson
+      });
+      map.addLayer({
+        'id': 'the_darkness',
+        'type': 'fill',
+        'layout': {
+          'visibility': 'visible',
+        },
+        'source': 'darkness'
+      });
+
+    });
   }
 
   render() {
@@ -40,10 +57,10 @@ class Application extends React.Component {
 
     return (
       <div>
-        <div className="inline-block absolute top left mt12 ml12 bg-darken75 color-white z1 py6 px12 round-full txt-s txt-bold">
+        <div className='inline-block absolute top left mt12 ml12 bg-darken75 color-white z1 py6 px12 round-full txt-s txt-bold'>
           <div>{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
         </div>
-        <div ref={el => this.mapContainer = el} className="absolute top right left bottom" />
+        <div id='map' ref={el => this.mapContainer = el} className='absolute top right left bottom' />
       </div>
     );
   }

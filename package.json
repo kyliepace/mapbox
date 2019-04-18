@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kylie Pace",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "dependencies": {
     "mapbox-gl": "^0.53.1",
     "react": "^16.8.4",
