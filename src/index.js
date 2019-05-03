@@ -38,11 +38,12 @@ class Application extends React.Component {
     map.on('load', async () => {
       const darkness = await axios.get('http://127.0.0.1:3000/api/darkness');
       console.log(darkness)
+      
       map.addSource('darkness', {
         type: 'geojson',
         data: {
           type: "FeatureCollection",
-          "features": [ darkness.data ]
+          features: [ darkness.data.feature ]
         }
       });
       map.addLayer({
@@ -52,6 +53,23 @@ class Application extends React.Component {
           'visibility': 'visible',
         },
         'source': 'darkness'
+      });
+
+      const paths = await axios.get('http://127.0.0.1:3000/api/paths');
+      map.addSource('paths', {
+        type: 'geojson',
+        data: {
+          type: "FeatureCollection",
+          features: paths.data.features
+        }
+      });
+      map.addLayer({
+        'id': 'bike_paths',
+        'type': 'fill',
+        'layout': {
+          'visibility': 'visible',
+        },
+        'source': 'paths'
       });
 
     });
