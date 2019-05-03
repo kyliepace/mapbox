@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import mapboxgl from 'mapbox-gl'
-import geojson from './darkness.json'
+import axios from 'axios'
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 class Application extends React.Component {
@@ -35,10 +35,15 @@ class Application extends React.Component {
       });
     });
 
-    map.on('load', () => {
+    map.on('load', async () => {
+      const darkness = await axios.get('http://127.0.0.1:3000/api/darkness');
+      console.log(darkness)
       map.addSource('darkness', {
         type: 'geojson',
-        data: geojson
+        data: {
+          type: "FeatureCollection",
+          "features": [ darkness.data ]
+        }
       });
       map.addLayer({
         'id': 'the_darkness',
