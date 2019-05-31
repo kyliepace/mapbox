@@ -9,6 +9,7 @@
   "author": "Kylie Pace",
   "license": "UNLICENSED",
   "dependencies": {
+    "@mapbox/polyline": "^1.1.0",
     "axios": "^0.18.0",
     "mapbox-gl": "^0.53.1",
     "react": "^16.8.4",
