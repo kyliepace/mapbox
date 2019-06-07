@@ -1,30 +1,30 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Map from './components/Map';
-import Strava from './components/Strava';
 
 class Application extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      route: {}
+      showRoute: false
     };
-    this.chooseRoute = this.chooseRoute.bind(this);
+    this.getRoute = this.getRoute.bind(this);
   }
 
-  chooseRoute(route){
+  getRoute(){
     this.setState({
-      route: route
+      showRoute: true
     });
-    
-    console.log('got routes: ', this.state.route);
   }
 
   render() {
     return (
       <main>
-        <Strava chooseRoute={this.chooseRoute}/>
-        <Map route={this.state.route}/>
+        {/* <Strava chooseRoute={this.chooseRoute}/> */}
+        <div>
+          <button onClick={this.getRoute}>Get Route</button>
+        </div>
+        <Map showRoute={this.state.showRoute}/>
       </main>
     );
   }
