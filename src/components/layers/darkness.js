@@ -1,35 +1,35 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { GeoJSONLayer } from 'react-mapbox-gl'
-import axios from 'axios'
 
-export default class Darkness extends PureComponent {
-  constructor(props: Props){
-    super(props);
-    this.state = {
-      darkness: undefined
-    }
-  }
+const Darkness = (props) => {
+  const { darkness } = props;
+  if (!darkness){ return null}
 
+  const featureCollection = {
+    type: 'FeatureCollection',
+    features: [{
+      type: 'Feature',
+      properties: darkness.properties,
+      geometry: darkness.feature.geometry
+    }]
+  };
 
-  async componentDidMount() {
-    console.log('mounted')
-    const { data }  = await axios.get('http://127.0.0.1:3001/api/darkness');
-    this.setState({darkness: data});
-  }
+  return (
+    <GeoJSONLayer
+      id='darkness'
+      key={1}
+      data = {featureCollection}
+      sourceId='the_darkness'
+      type='fill'
+      fillLayout={{
+        visibility: 'visible',
+      }}
+      fillPaint={{
+        'fill-color': 'black',
+        'fill-opacity': 1
+      }}
+    />
+  )
+};
 
-  render() {
-    const { darkness } = this.state;
-    console.log('darkness: ', darkness)
-    if (!darkness){ return null}
-    return (   
-      <GeoJSONLayer
-        id='darkness'
-        data = {darkness}
-        paintLayout = {{
-          'background-color': '#00000',
-          'fill-color': '#00000'
-        }}
-      />
-    )
-  }
-}
+export default Darkness;

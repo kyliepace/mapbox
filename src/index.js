@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Map from './components/Map';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 class Application extends React.Component {
   constructor(props){

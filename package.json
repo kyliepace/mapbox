@@ -14,7 +14,7 @@
     "mapbox-gl": "^1.0.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-mapbox-gl": "^4.2.0"
+    "react-mapbox-gl": "^4.4.0"
   },
   "devDependencies": {
     "react-scripts": "^2.1.8"
