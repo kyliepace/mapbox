@@ -9,8 +9,7 @@ const Darkness = (props) => {
     type: 'FeatureCollection',
     features: [{
       type: 'Feature',
-      properties: darkness.properties,
-      geometry: darkness.feature.geometry
+      geometry: darkness
     }]
   };
 
