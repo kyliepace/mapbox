@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import ReactMapboxGl from 'react-mapbox-gl'
 import Darkness from './layers/darkness'
-import axios from 'axios'
+import Paths from './layers/paths'
 
 export default class Map extends PureComponent {
 
@@ -9,7 +9,6 @@ export default class Map extends PureComponent {
     super(props);
     this.state = {
       mapStyle: 'mapbox://styles/mapbox/satellite-streets-v9',
-      darkness: undefined,
       viewport: {
         center: [ -2.3, 51.4],
         zoom: [10],
@@ -19,18 +18,8 @@ export default class Map extends PureComponent {
     };
   }
 
-  onViewportChange = viewport => {
-    this.setState({viewport});
-  }
-
-  async componentDidMount() {
-    const { data }  = await axios.get('http://127.0.0.1:3001/api/darkness');
-    this.setState({darkness: data});
-
-  }
-
   render() {
-    const { viewport, mapStyle, darkness } = this.state;
+    const { viewport, mapStyle } = this.state;
 
     const Map = ReactMapboxGl({
       accessToken: process.env.REACT_APP_MAPBOX_TOKEN,
@@ -41,13 +30,14 @@ export default class Map extends PureComponent {
     return (
       <Map
         style={mapStyle}
-       {...viewport}
+        {...viewport}
         containerStyle={{
           height: '90vh',
           width: '100vw'
         }}
       >
-        <Darkness darkness={darkness}/>
+        <Paths geojson={this.props.paths} />
+        <Darkness geojson={this.props.darkness}/>
       </Map>
     )
   }

@@ -1,32 +1,26 @@
 import React from 'react'
-import { GeoJSONLayer } from 'react-mapbox-gl'
+import Geojson from './geojson'
 
 const Darkness = (props) => {
-  const { darkness } = props;
-  if (!darkness){ return null}
-
-  const featureCollection = {
-    type: 'FeatureCollection',
-    features: [{
-      type: 'Feature',
-      geometry: darkness
-    }]
+  console.log('render darkness')
+  const style = {
+    type: 'fill',
+    fillLayout: {
+      visibility: 'visible'
+    },
+    fillPaint: {
+      'fill-color': 'black',
+      'fill-opacity': 1
+    }
   };
 
   return (
-    <GeoJSONLayer
+    <Geojson
       id='darkness'
       key={1}
-      data = {featureCollection}
       sourceId='the_darkness'
-      type='fill'
-      fillLayout={{
-        visibility: 'visible',
-      }}
-      fillPaint={{
-        'fill-color': 'black',
-        'fill-opacity': 1
-      }}
+      geojson={props.geojson}
+      style={style}
     />
   )
 };

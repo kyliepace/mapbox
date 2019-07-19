@@ -1,10 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-const getPaths = async (e) => {
-  e.preventDefault();
-  const paths = await axios.get('http://127.0.0.1:3001/api/paths');
-  console.log(paths)
+const getPaths = async () => {
+  const { data } = await axios.get('http://127.0.0.1:3001/api/paths');
+  return data;
 };
 
 const uploadPath = (e) => {
@@ -18,10 +17,16 @@ const uploadPath = (e) => {
   document.getElementById('geojsonfile').value = '';
 };
 
-const PolylinePicker = () => {
+const PolylinePicker = (props) => {
+  const onClick = async e => {
+    e.preventDefault();
+    const paths = await getPaths();
+    props.onPick(paths);
+  };
+
   return (
     <div>
-        <button onClick={getPaths}>Choose Path</button>
+        <button onClick={onClick}>Choose Path</button>
         <form>
           <input
             type='file'
