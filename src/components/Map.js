@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import ReactMapboxGl from 'react-mapbox-gl'
 import Darkness from './layers/darkness'
-import Paths from './layers/paths'
+// import Paths from './layers/paths'
 
 export default class Map extends PureComponent {
 
@@ -36,7 +36,7 @@ export default class Map extends PureComponent {
           width: '100vw'
         }}
       >
-        <Paths geojson={this.props.paths} />
+        {/* <Paths geojson={this.props.paths} /> */}
         <Darkness geojson={this.props.darkness}/>
       </Map>
     )
