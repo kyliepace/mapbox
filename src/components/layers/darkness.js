@@ -5,19 +5,16 @@ const Darkness = (props) => {
   console.log('render darkness')
   const style = {
     type: 'fill',
-    fillLayout: {
-      visibility: 'visible'
-    },
     fillPaint: {
-      'fill-color': 'black',
-      'fill-opacity': 1
-    }
+      'fill-color': 'rgba(0, 0, 255, 0.3)',
+      // 'fill-opacity': 0.1
+    },
   };
 
   return (
     <Geojson
       id='darkness'
-      key={1}
+      number={1}
       sourceId='the_darkness'
       geojson={props.geojson}
       style={style}

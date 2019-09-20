@@ -11,7 +11,7 @@ export default class Map extends PureComponent {
       mapStyle: 'mapbox://styles/mapbox/satellite-streets-v9',
       viewport: {
         center: [ -2.3, 51.4],
-        zoom: [10],
+        zoom: [8],
         bearing: [0],
         pitch: [0]
       }
@@ -20,6 +20,7 @@ export default class Map extends PureComponent {
 
   render() {
     const { viewport, mapStyle } = this.state;
+    console.log('props: ', this.props)
 
     const Map = ReactMapboxGl({
       accessToken: process.env.REACT_APP_MAPBOX_TOKEN,

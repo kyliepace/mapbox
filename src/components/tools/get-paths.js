@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-const getPaths = async (e, callback) => {
+const getCheese = async (e, callback) => {
   const { data } = await axios.get('http://127.0.0.1:3001/api/paths');
   return callback(data)
 };
@@ -28,7 +28,7 @@ const PolylinePicker = (props) => {
 
   return (
     <div>
-        <button onClick={onClick(getPaths)}>Choose Path</button>
+        <button onClick={onClick(getCheese)}>Load Cheese Line</button>
         <form>
           <input
             type='file'

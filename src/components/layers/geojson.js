@@ -2,7 +2,7 @@ import React from 'react'
 import { GeoJSONLayer } from 'react-mapbox-gl'
 
 const Geojson = (props) => {
-  const { geojson, sourceId, id, style } = props;
+  const { geojson, sourceId, id, style, number } = props;
   if (!geojson){ return null}
 
   const featureCollection = {
@@ -12,16 +12,17 @@ const Geojson = (props) => {
       geometry: geojson
     }]
   };
-  console.log(geojson)
   return (
     <GeoJSONLayer
       id={id}
-      key={1}
+      key={number}
       data = {featureCollection}
       sourceId={sourceId}
       type={style.type}
-      fillLayout={style.fillLayout}
-      fillPaint={style.fillPain}
+      fillPaint={style.fillPaint}
+      lineLayout={style.lineLayout}
+      linePaint={style.linePaint}
+      paint={style.paint}
     />
   )
 };

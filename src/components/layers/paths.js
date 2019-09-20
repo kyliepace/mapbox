@@ -18,8 +18,8 @@ const Paths = (props) => {
   return (
     <Geojson
       id='paths'
-      key={2}
-      geojson={props.geojson[0]}
+      number={2}
+      geojson={props.geojson}
       sourceId={'the_paths'}
       style={style}
     />

@@ -15,6 +15,7 @@ class Application extends PureComponent {
   }
 
   updatePaths = paths => {
+    console.log('update paths: ', paths)
     this.setState({paths})
   }
 
