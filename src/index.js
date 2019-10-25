@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import Map from './components/Map';
-import PolylinePicker from './components/tools/get-paths';
+import GeometryLoader from './components/tools/geo-loader';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 class Application extends PureComponent {
@@ -10,13 +10,14 @@ class Application extends PureComponent {
     super(props)
     this.state = {
       paths: [],
+      points: [],
       darkness: undefined
     }
   }
 
-  updatePaths = paths => {
-    console.log('update paths: ', paths)
-    this.setState({paths})
+  update = (name, data) => {
+    const newState = { [name]: data };
+    this.setState(newState);
   }
 
   async componentDidMount() {
@@ -25,11 +26,20 @@ class Application extends PureComponent {
   }
 
   render(){
-
+    const { paths, points } = this.state;
+    console.log(this.state.points.length)
+    console.log(this.state.paths.length)
     return (
       <main>
-        <PolylinePicker onPick={this.updatePaths}/>
-        <Map paths={this.state.paths} darkness={this.state.darkness}/>
+        <GeometryLoader
+          onClick={this.update}
+          hasLines={paths.length > 0}
+          hasPoints={points.length > 0}
+        />
+        <Map
+          paths={paths}
+          darkness={this.state.darkness}
+        />
       </main>
     );
   }

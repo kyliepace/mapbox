@@ -2,7 +2,7 @@ import React from 'react'
 import Geojson from './geojson'
 
 const Paths = (props) => {
-  if (!props.geojson || props.geojson.length < 1){ return null; }
+  console.log(props)
   const style = {
     type: 'line',
     lineLayout: {
@@ -15,15 +15,18 @@ const Paths = (props) => {
     }
   };
 
-  return (
-    <Geojson
-      id='paths'
-      number={2}
-      geojson={props.geojson}
-      sourceId={'the_paths'}
-      style={style}
-    />
-  )
+  return props.geojson && props.geojson.map((geojson, index) => {
+      return (
+        <Geojson
+          id={`path_${index}`}
+          number={index}
+          geojson={geojson}
+          sourceId={'the_paths'}
+          style={style}
+        />
+      )
+    })
+
 };
 
 export default Paths;

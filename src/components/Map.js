@@ -20,7 +20,6 @@ export default class Map extends PureComponent {
 
   render() {
     const { viewport, mapStyle } = this.state;
-    console.log('props: ', this.props)
 
     const Map = ReactMapboxGl({
       accessToken: process.env.REACT_APP_MAPBOX_TOKEN,
