@@ -2,6 +2,9 @@ import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import Map from './components/Map';
 import GeometryLoader from './components/tools/geo-loader';
+import Paths from './components/layers/paths'
+import Polygons from './components/layers/polygons'
+import Points from './components/layers/points'
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 class Application extends PureComponent {
@@ -19,10 +22,27 @@ class Application extends PureComponent {
     this.setState(newState);
   }
 
-  // async componentDidMount() {
-  //   const { data }  = await axios.get('http://127.0.0.1:3001/api/darkness');
-  //   this.setState({darkness: data});
-  // }
+  reset = (name, data) => {
+    const newState = {paths: [], points: [], polygons: []};
+
+    data.forEach(geometry => {
+      const { type } = geometry;
+      switch(type) {
+        case 'Point':
+          newState.points.push(geometry);
+          break;
+        case 'Polygon':
+          newState.polygons.push(geometry);
+          break;
+        case 'LineString':
+          newState.paths.push(geometry);
+          break;
+        default:
+          break;
+      }
+    });
+    this.setState(newState);
+  };
 
   render(){
     const { paths, points, polygons } = this.state;
@@ -34,12 +54,13 @@ class Application extends PureComponent {
           hasLines={paths.length > 0}
           hasPoints={points.length > 0}
           hasPolygons={polygons.length > 0}
+          onAnalyze={this.reset}
         />
-        <Map
-          paths={paths}
-          points={points}
-          polygons={polygons}
-        />
+        <Map>
+          <Paths geojson={paths} />
+          <Polygons geojson={polygons} />
+          <Points geojson={points} />
+        </Map>
       </main>
     );
   }

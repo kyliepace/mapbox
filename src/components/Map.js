@@ -1,12 +1,9 @@
 import React, { PureComponent } from 'react'
 import ReactMapboxGl from 'react-mapbox-gl'
-import Paths from './layers/paths'
-import Polygons from './layers/polygons'
-import Points from './layers/points'
 
 export default class Map extends PureComponent {
 
-  constructor(props: Props) {
+  constructor(props) {
     super(props);
     this.state = {
       mapStyle: 'mapbox://styles/mapbox/satellite-streets-v9',
@@ -21,7 +18,7 @@ export default class Map extends PureComponent {
 
   render() {
     const { viewport, mapStyle } = this.state;
-    const { paths, points, polygons } = this.props;
+
     const Map = ReactMapboxGl({
       accessToken: process.env.REACT_APP_MAPBOX_TOKEN,
       logoPosition: 'bottom-left',
@@ -37,9 +34,7 @@ export default class Map extends PureComponent {
           width: '100vw'
         }}
       >
-        <Paths geojson={paths} />
-        <Polygons geojson={polygons} />
-        <Points geojson={points} />
+        {this.props.children}
       </Map>
     )
   }

@@ -1,8 +1,34 @@
 #app{
   height: 100vh;
-  font-family: 'Germania One', cursive;
+  font-family: "Lucida Console", Monaco, monospace;
 }
 
 .mapboxgl-canvas-container {
   height: 100vh;
 }
+
+.menuButton {
+  /* border: 1px solid black; */
+  height: 200px;
+  width: 150px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.menuButton > span {
+  display: none;
+}
+
+.menuButton:hover, .menuButton.selected {
+  background-color: grey;
+}
+
+.menuButton:hover > span, .menuButton.selected > span {
+  display: block;
+  padding-top: 15px;
+}
+
+.menuButton > input[type=checkbox] {
+  transform: scale(2);
+}
+
