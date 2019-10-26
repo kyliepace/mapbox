@@ -1,5 +1,6 @@
 import React from 'react';
 import Analysis from './analysis';
+import Calculate from './calculate';
 import { callServer } from './get-data';
 
 const clearData = (name, callback) => e => {
@@ -49,6 +50,8 @@ const GeometryLoader = ({onClick, onAnalyze, ...props}) => {
         />
       </div>
       <Analysis callback={onAnalyze}/>
+
+      <Calculate callback={onClick}/>
 
     </div>
   )
