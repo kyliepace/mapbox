@@ -22,6 +22,7 @@ const Geojson = (props) => {
       fillPaint={style.fillPaint}
       lineLayout={style.lineLayout}
       linePaint={style.linePaint}
+      circlePaint={style.circlePaint}
       paint={style.paint}
     />
   )

@@ -1,26 +1,22 @@
 import React from 'react'
 import Geojson from './geojson'
 
-const Paths = (props) => {
+const Points = (props) => {
   const style = {
-    type: 'line',
-    lineLayout: {
-      'line-cap': 'round',
-      visibility: 'visible'
-    },
-    linePaint: {
-      'line-color': '#8df542',
-      'line-width': 10
+    type: 'circle',
+    circlePaint: {
+      'circle-color': '#8df542',
+      'circle-radius': 5
     }
   };
 
   return props.geojson && props.geojson.map((geojson, index) => {
       return (
         <Geojson
-          id={`path_${index}`}
+          id={`point_${index}`}
           number={index}
           geojson={geojson}
-          sourceId={'the_paths'}
+          sourceId={'the_points'}
           style={style}
         />
       )
@@ -28,4 +24,4 @@ const Paths = (props) => {
 
 };
 
-export default Paths;
+export default Points;
