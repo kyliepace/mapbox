@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import Map from './components/Map';
-import GeometryLoader from './components/tools/geo-loader';
+import GeometryLoader from './components/geo-loader';
 import Paths from './components/layers/paths'
 import Polygons from './components/layers/polygons'
 import Points from './components/layers/points'
@@ -46,6 +46,7 @@ class Application extends PureComponent {
       }
     });
     this.setState(newState);
+    console.log(this.state)
   };
 
   render(){

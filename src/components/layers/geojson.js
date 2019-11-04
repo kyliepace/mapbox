@@ -2,7 +2,7 @@ import React from 'react'
 import { GeoJSONLayer } from 'react-mapbox-gl'
 
 const Geojson = (props) => {
-  const { geojson, sourceId, id, style, number } = props;
+  const { geojson, sourceId, id, style } = props;
   if (!geojson){ return null}
 
   const featureCollection = {

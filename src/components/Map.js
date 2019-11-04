@@ -30,7 +30,7 @@ export default class Map extends PureComponent {
         style={mapStyle}
         {...viewport}
         containerStyle={{
-          height: '90vh',
+          height: '80vh',
           width: '100vw'
         }}
       >

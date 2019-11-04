@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import { callServer, postServer } from './get-data';
+import React from 'react';
+import { callServer, postServer } from '../../functions/get-data';
 
 const AnalysisButton = ({name, onClick, children, description, selected, ...props}) => {
   const isSelected = selected === name;
@@ -20,54 +20,45 @@ const AnalysisButton = ({name, onClick, children, description, selected, ...prop
   )
 };
 
-export default class Analysis extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: undefined,
-      callback: props.callback
-    }
+const selectButton = callback => (name) => {
+  return (e) => {
+    callServer(name, callback)(e);
   }
+}
 
-  selectButton(name) {
-    const callback = this.state.callback;
-    return (e) => {
-      this.setState({selected: name});
-      callServer(name, callback)(e);
-    }
+const findNear = callback => (name, distance = 500) => {
+  return (e) => {
+    postServer(name, distance, callback)(e);
   }
+}
 
-  findNear(name, distance = 500) {
-    const { callback } = this.state;
-    return (e) => {
-      postServer(name, distance, callback)(e);
-    }
-  }
+const Analysis = (props) => {
+    const { selected, callback } = props;
 
-  render() {
-    const { selected } = this.state;
     return (
       <div style={{display: 'flex'}}>
         <AnalysisButton
           name='analysis/geoWithin'
           description='find all geometries within the big polygon'
-          onClick={this.selectButton.bind(this)}
+          onClick={selectButton(callback)}
           selected={selected}
         >
           $geoWithin
         </AnalysisButton>
+
         <AnalysisButton
           name='analysis/near'
-          onClick={this.findNear.bind(this)}
+          onClick={findNear(callback)}
           description='find all geometries near PSN by meters'
           selected={selected}
           askDistance={true}
         >
           $near
         </AnalysisButton>
+
         <AnalysisButton
           name='analysis/intersects'
-          onClick={this.selectButton.bind(this)}
+          onClick={selectButton(callback)}
           disabled={true}
           selected={selected}
           description='find all geometries that intersect the big polygon'
@@ -76,5 +67,6 @@ export default class Analysis extends PureComponent {
         </AnalysisButton>
       </div>
     )
-  }
 }
+
+export default Analysis;
