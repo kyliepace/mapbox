@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import { callServer } from './get-data';
+import { callServer, postServer } from './get-data';
 
-const AnalysisButton = ({name, onClick, children, description, selected}) => {
+const AnalysisButton = ({name, onClick, children, description, selected, ...props}) => {
   const isSelected = selected === name;
   return (
     <div
@@ -9,6 +9,12 @@ const AnalysisButton = ({name, onClick, children, description, selected}) => {
       onClick={onClick(name)}
     >
       <h3>{children}</h3>
+      {props.askDistance &&
+        <input
+          type='number'
+          onChange={(e) => e.target.value > 100 && onClick(name, e.target.value)(e)}
+        />
+      }
       <span>{description}</span>
     </div>
   )
@@ -31,6 +37,13 @@ export default class Analysis extends PureComponent {
     }
   }
 
+  findNear(name, distance = 500) {
+    const { callback } = this.state;
+    return (e) => {
+      postServer(name, distance, callback)(e);
+    }
+  }
+
   render() {
     const { selected } = this.state;
     return (
@@ -45,9 +58,10 @@ export default class Analysis extends PureComponent {
         </AnalysisButton>
         <AnalysisButton
           name='analysis/near'
-          onClick={this.selectButton.bind(this)}
-          description='find all geometries near PSN'
+          onClick={this.findNear.bind(this)}
+          description='find all geometries near PSN by meters'
           selected={selected}
+          askDistance={true}
         >
           $near
         </AnalysisButton>
@@ -56,6 +70,7 @@ export default class Analysis extends PureComponent {
           onClick={this.selectButton.bind(this)}
           disabled={true}
           selected={selected}
+          description='find all geometries that intersect the big polygon'
         >
           $geoIntersects
         </AnalysisButton>

@@ -13,7 +13,11 @@ class Application extends PureComponent {
     this.state = {
       paths: [],
       points: [],
-      polygons: []
+      polygons: [],
+      PSN: [{
+        type: 'Point',
+        coordinates: [ -2.364099, 51.382239 ]
+      }]
     }
   }
 
@@ -45,7 +49,7 @@ class Application extends PureComponent {
   };
 
   render(){
-    const { paths, points, polygons } = this.state;
+    const { paths, points, polygons, PSN } = this.state;
 
     return (
       <main>
@@ -59,7 +63,7 @@ class Application extends PureComponent {
         <Map>
           <Paths geojson={paths} />
           <Polygons geojson={polygons} />
-          <Points geojson={points} />
+          <Points geojson={[...points, ...PSN]} />
         </Map>
       </main>
     );

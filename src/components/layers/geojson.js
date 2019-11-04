@@ -12,10 +12,12 @@ const Geojson = (props) => {
       geometry: geojson
     }]
   };
+
+  const key = `${Math.random(100)}`;
   return (
     <GeoJSONLayer
       id={id}
-      key={number}
+      key={key}
       data = {featureCollection}
       sourceId={sourceId}
       type={style.type}

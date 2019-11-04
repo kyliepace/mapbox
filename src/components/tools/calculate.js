@@ -28,7 +28,7 @@ export default class Calculate extends PureComponent {
         <h3>Distance</h3>
         <Distance distances={this.state.distances} />
 
-        <span>Calculate distance between all points within 500km of PSN</span>
+        <span>Calculate distance between all points between 5km and 500km from PSN</span>
       </div>
     );
   }
